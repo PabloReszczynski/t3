@@ -38,4 +38,20 @@ describe('P1 parser', () => {
       ));
   });
 
+});
+
+describe('P2 parser', () => {
+  //it ('should parse a with', () => {
+  //  let parsed = parse('{with {n 5} n}');
+  //  expect(parsed).
+  //    toEqual(Expr.App(Expr.Fun(Expr.Id('n'), Expr.Num(5))), {name: 'n'});
+  //});
+
+  it ('should parse a fun', () => {
+    let parsed = parse('{fun x {+ x x}}');
+    expect(parsed).
+      toEqual(Expr.Fun(Expr.Id('x'),
+                       Expr.Sum(Expr.Id('x'),
+                                Expr.Id('x'))));
+  });
 })
