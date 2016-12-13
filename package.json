@@ -1,0 +1,17 @@
+{
+  "name": "t3",
+  "version": "0.0.1",
+  "description": "Tarea 3 de lenguajes",
+  "main": "main.js",
+  "scripts": {
+    "test": "./node_modules/jasmine-node/bin/jasmine-node tests"
+  },
+  "author": "Pablo Reszczynski",
+  "license": "MIT",
+  "dependencies": {
+    "jasmine": "^2.5.2",
+    "jasmine-node": "^1.14.5",
+    "pun": "^0.1.1",
+    "sexpression": "0.0.5"
+  }
+}
