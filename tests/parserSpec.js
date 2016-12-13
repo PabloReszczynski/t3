@@ -1,6 +1,7 @@
 const parser = require('../lib/parser.js');
 const parse = parser.parse;
 const Expr = parser.Expr;
+const pp = parser.pp;
 
 describe('P1 parser', () => {
   it('should parse a simple sum', () => {
@@ -41,11 +42,12 @@ describe('P1 parser', () => {
 });
 
 describe('P2 parser', () => {
-  //it ('should parse a with', () => {
-  //  let parsed = parse('{with {n 5} n}');
-  //  expect(parsed).
-  //    toEqual(Expr.App(Expr.Fun(Expr.Id('n'), Expr.Num(5))), {name: 'n'});
-  //});
+  it ('should parse a with', () => {
+    let parsed = parse('{with {n 5} n}');
+    expect(parsed).
+      toEqual(Expr.App(Expr.Fun(Expr.Id('n'),
+              Expr.Num(5)), Expr.Id('n')));
+  });
 
   it ('should parse a fun', () => {
     let parsed = parse('{fun x {+ x x}}');
@@ -54,4 +56,18 @@ describe('P2 parser', () => {
                        Expr.Sum(Expr.Id('x'),
                                 Expr.Id('x'))));
   });
+
+  it('should parse an application', () => {
+    let parsed = parse('{{fun x {+ x x}} 5}');
+    //console.log(pp(parsed));
+    expect(parsed).
+      toEqual(Expr.App(
+        Expr.Fun(
+          Expr.Id('x'),
+          Expr.Sum(
+            Expr.Id('x'),
+            Expr.Id('x'))),
+        Expr.Num(5)));
+  });
+
 })
