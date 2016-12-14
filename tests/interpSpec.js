@@ -1,9 +1,10 @@
 const parser = require('../lib/parser.js');
 const parse = parser.parse;
+const Expr = parser.Expr;
 const interp = require('../lib/interp.js').interp;
 const Env = require('../lib/interp.js').Env;
 
-describe('The P1 interpreter', () => {
+describe('P1 interpreter', () => {
   it('should interpret a simple sum', () => {
     let parsed = parse('{+ 1 2}');
     let interpreted = interp(parsed, Env.mtEnv());
@@ -29,7 +30,7 @@ describe('The P1 interpreter', () => {
   });
 });
 
-describe("The P2 interpreter", () => {
+describe("P2 interpreter", () => {
   it('should interpret with', () => {
     let parsed = parse('{with {x 5} x}');
     let interpreted = interp(parsed, Env.mtEnv());
@@ -49,5 +50,34 @@ describe("The P2 interpreter", () => {
     let parsed = parse('{{fun {x} {+ x x}} 5}');
     let interpreted = interp(parsed, Env.mtEnv());
     expect(interpreted.n).toEqual(10);
+  });
+});
+
+describe("P3 interpreter", () => {
+  it ('should interpret a set', () => {
+    let parsed = parse('{with {x 0} {set x 101}}');
+    let interpreted = interp(parsed, Env.mtEnv());
+    expect(interpreted.n).toEqual(101);
+  });
+
+  it('should interpret a seqn', () => {
+    let parsed = parse('{seqn 5 6}');
+    let interpreted = interp(parsed, Env.mtEnv());
+    expect(interpreted.n).toEqual(6);
+  });
+});
+
+describe('utils funs', () => {
+  let set_env = require('../lib/interp.js').set_env;
+  let pe = require('../lib/interp.js').prettifyEnv;
+  it('set_env should modify an env', () => {
+    let myEnv = Env.anEnv('a', Expr.Id(1),
+                Env.anEnv('b', Expr.Id(2),
+                Env.anEnv('c', Expr.Id(3), Env.mtEnv())));
+    let newEnv = set_env('b', Expr.Id(5), myEnv);
+    expect(pe(newEnv)).toEqual(pe (
+      Env.anEnv('a', Expr.Id(1),
+      Env.anEnv('b', Expr.Id(5),
+      Env.anEnv('c', Expr.Id(3), Env.mtEnv())))));
   });
 });

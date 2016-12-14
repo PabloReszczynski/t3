@@ -70,4 +70,20 @@ describe('P2 parser', () => {
         Expr.Num(5)));
   });
 
-})
+});
+
+describe('P3 parser', () => {
+  it('should parse a set', () => {
+    let parsed = parse('{with {x 0} {set x 101}}');
+    expect(parsed).
+      toEqual(Expr.App(Expr.Fun(Expr.Id('x'),
+                       Expr.Set(Expr.Id('x'),
+                                Expr.Num(101))),
+              Expr.Num(0)));
+  });
+
+  it ('should parse a seqn', () => {
+    let parsed = parse('{seqn 5 6}');
+    expect(parsed).toEqual(Expr.Seqn(Expr.Num(5), Expr.Num(6)));
+  });
+});
