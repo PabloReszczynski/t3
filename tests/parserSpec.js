@@ -46,11 +46,11 @@ describe('P2 parser', () => {
     let parsed = parse('{with {n 5} n}');
     expect(parsed).
       toEqual(Expr.App(Expr.Fun(Expr.Id('n'),
-              Expr.Num(5)), Expr.Id('n')));
+              Expr.Id('n')), Expr.Num(5)));
   });
 
   it ('should parse a fun', () => {
-    let parsed = parse('{fun x {+ x x}}');
+    let parsed = parse('{fun {x} {+ x x}}');
     expect(parsed).
       toEqual(Expr.Fun(Expr.Id('x'),
                        Expr.Sum(Expr.Id('x'),
@@ -58,7 +58,7 @@ describe('P2 parser', () => {
   });
 
   it('should parse an application', () => {
-    let parsed = parse('{{fun x {+ x x}} 5}');
+    let parsed = parse('{{fun {x} {+ x x}} 5}');
     //console.log(pp(parsed));
     expect(parsed).
       toEqual(Expr.App(
