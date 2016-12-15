@@ -87,3 +87,13 @@ describe('P3 parser', () => {
     expect(parsed).toEqual(Expr.Seqn(Expr.Num(5), Expr.Num(6)));
   });
 });
+
+describe('Exception error output:', () => {
+  it('should throw invalid expression when given a bad expression', () => {
+    expect(() => parse('{10 2}'))
+    .toThrow(new Error("error: expresion invalida {10 2}"));
+
+    expect(() => parse('{10 2 1}'))
+    .toThrow(new Error("error: expresion invalida {10 2 1}"));
+  });
+});

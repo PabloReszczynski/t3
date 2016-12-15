@@ -46,11 +46,23 @@ describe("P2 interpreter", () => {
     }
   });
 
+  it('should interpret a second fun', () => {
+    let parsed = parse('{fun {x} x}');
+    let interpreted = interp(parsed, Env.mtEnv());
+    expect(interpreted).toEqual(jasmine.any(Function));
+  });
+
   it('should interpret an app', () => {
     let parsed = parse('{{fun {x} {+ x x}} 5}');
     let interpreted = interp(parsed, Env.mtEnv());
     expect(interpreted.n).toEqual(10);
   });
+
+  it('should throw an error when interpreting a free id', () => {
+    let parsed = parse('y');
+    expect(() => interp(parsed, Env.mtEnv()))
+    .toThrow('error: identificador libre!! y');
+  })
 });
 
 describe("P3 interpreter", () => {

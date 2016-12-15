@@ -3,13 +3,17 @@ const parser = require('./lib/parser.js');
 const readLine = require('readline');
 
 const interp = interpr.interp;
+const Env = interpr.Env;
 const parse = parser.parse;
 
 const Val = interpr.Val;
 
 const run = (prog) => {
-  intr = interp(parse(prog)).n + ''
-  console.log(intr);
+  intr = interp(parse(prog), Env.mtEnv())
+  if(typeof intr === 'function')
+    console.log('Function');
+  else
+    console.log(intr.n);
   return intr;
 }
 
@@ -26,7 +30,7 @@ const prompt = () => {
     try {
       run(line.trim());
     } catch(err) {
-      console.log(err);
+      console.log(err.message);
     }
     rl.prompt();
   }).on('close', () => {
