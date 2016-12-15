@@ -42,7 +42,11 @@ const prompt = () => {
 const main = () => {
   program = process.argv[2];
   if (program) {
-    run(program.trim());
+    try {
+      run(program.trim());
+    } catch(err) {
+      console.log(err.message);
+    }
   }
   else {
     prompt();
