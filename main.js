@@ -8,6 +8,11 @@ const parse = parser.parse;
 
 const Val = interpr.Val;
 
+/**
+ * Interpreta un programa.
+ * @param {string} prog - El programa a ejecutar.
+ * @returns {string} -
+ */
 const run = (prog) => {
   intr = interp(parse(prog), Env.mtEnv())
   if(typeof intr === 'function')
@@ -17,6 +22,9 @@ const run = (prog) => {
   return intr;
 }
 
+/**
+ * Ejecuta una línea de comandos. Un programa por línea. No se guarda memoria.
+ */
 const prompt = () => {
   const rl = readLine.createInterface({
     input: process.stdin,
@@ -39,6 +47,10 @@ const prompt = () => {
 
 };
 
+/**
+ * Función principal. Corre el argumento como un programa.
+ * Si no hay argumento, corre prompt.
+ */
 const main = () => {
   program = process.argv[2];
   if (program) {
