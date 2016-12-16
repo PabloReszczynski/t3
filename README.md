@@ -1,5 +1,9 @@
-# Tarea 3 de lenguajes de programacion
+# Tarea 3 de lenguajes de programación
 ### por Pablo Reszczynski
+
+Este intérprete está escrito en javascript. Usando la libreria pun.js para
+tener pattern matching y ADTs, haciendo más fácil poder escribir el intérprete
+de manera funcional.
 
 ## Instrucciones para correr el programa
 
